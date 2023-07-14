@@ -8,20 +8,13 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from application import Application
 
 class TestAutorization():
-  def setup_method(self, method):
-    self.driver = webdriver.Firefox()
-    self.vars = {}
-
-  def teardown_method(self, method):
-    self.driver.quit()
-
-  def open_page(self):
-    self.driver.get("https://zc-qa-test.win/")
-    self.driver.set_window_size(784, 693)
+  def setUp(self):
+    self.app=Application()
   
-  def test_autorization(self, login = "+(980) 387 68 14" , telcode = "0000"):
+  def test_autorization(self, login = "+(980) 387 68 14", telcode = "0000"):
     #авторизация юзера
     self.open_page()
     element = self.driver.find_element(By.CSS_SELECTOR, "a > img")
@@ -35,4 +28,4 @@ class TestAutorization():
     self.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys(telcode)
     self.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys(Keys.ENTER)
 
-  
+
