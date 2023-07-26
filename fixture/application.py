@@ -1,11 +1,12 @@
-
-from selenium import webdriver
+#from fixture.session import SessionHelper
+from selenium.webdriver.firefox.webdriver import WebDriver
 
 class Application:
 
     def __init__(self):
-        self.driver = webdriver.Firefox()
+        self.driver = WebDriver()
         self.driver.implicitly_wait(60)
+        #self.session = SessionHelper(self)
 
     def teardown_method(self):
         self.driver.quit()

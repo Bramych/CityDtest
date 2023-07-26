@@ -1,48 +1,47 @@
+import unittest
 import pytest
 import time
-import json
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-#from application import Application
+from fixture.application import Application
+from model.group import Group
 
-#@pytest.fixture()
-#def app(request):
-   # fixture = Application()
-   # request.addfinalazer(fixture.teardown_method)
-   # return fixture
 
-class TestAuthorization():
-    def setup_method(self):
-        self.driver = webdriver.Firefox()
-        #self.driver.implicitly_wait(60)
-        #self.app = Application()
+@pytest.fixture
+def app(request):
+    fixture = Application()
+    #request.addfinalazer(fixture.teardown_method)
+    return fixture
 
-    def teardown_method(self):
-        self.driver.quit()
+def test_autorization(app, login="9803876814", telcode="0000"):
+     # авторизация юзера
+    app.open_page()
+    time.sleep(1)
+    app.driver.find_element(By.CSS_SELECTOR, ".nav-bar-profile").click()
+    app.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys(
+    login)
+    time.sleep(1)
+    #app.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys(
+    #Keys.ENTER)
+    app.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys(
+    telcode)
+    app.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys(
+    Keys.ENTER)
+    time.sleep(1)
+    #app.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys(
+    #Keys.ENTER)
+    #app.driver.find_element(By.CSS_SELECTOR, ".Modal_modal-overlay__FAHhp").click()
 
-    def open_page(self):
-        self.driver.get("https://zc-qa-test.win/")
-        self.driver.set_window_size(1200, 800)
+def test_addcardavtpdzk(app):
+    app.open_page()
+    app.driver.find_element(By.ID, "desktopSearchInput").click()
+    app.driver.find_element(By.CSS_SELECTOR, "li:nth-child(2) .Button_button__4em_S").click()
 
-    def test_autorization(self, login="9803876814", telcode="0000"):
-        # авторизация юзера
-        self.open_page()
-        time.sleep(1)
-        self.driver.find_element(By.CSS_SELECTOR, ".nav-bar-profile").click()
-        self.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys(
-            login)
-        self.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys(login)
-        time.sleep(2)
-        self.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys(
-            Keys.ENTER)
-        self.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys(telcode)
-        time.sleep(2)
-        self.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys(
-            Keys.ENTER)
-        self.driver.find_element(By.CSS_SELECTOR, ".Modal_modal-overlay__FAHhp").click()
-
+def test_changeregion(app):
+    app.open_page()
+    app.driver.find_element(By.CSS_SELECTOR, ".sc-14cf5ab-0 > span").click()
+    app.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").click()
+    app.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").clear()
+    app.driver.find_element(By.CSS_SELECTOR, ".TextField_text-field-input__OMhtf:nth-child(1)").send_keys("Ирку")
+    app.driver.find_element(By.CSS_SELECTOR, "li:nth-child(2) > .RegionAutocomplete_region-autocomplete-suggestion___5xPE").click()
+    app.driver.find_element(By.CSS_SELECTOR, ".sc-44235671-3 > .Button_button__4em_S").click()
