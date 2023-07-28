@@ -5,7 +5,7 @@ class Application:
 
     def __init__(self):
         self.driver = WebDriver()
-        self.driver.implicitly_wait(60)
+        self.driver.implicitly_wait(1)
         #self.session = SessionHelper(self)
 
     def teardown_method(self):
