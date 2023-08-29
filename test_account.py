@@ -1,7 +1,6 @@
 import requests
 import json
 
-
 class Account:
 
     def test_get_info(self):
@@ -16,4 +15,7 @@ class Account:
         }
         response = requests.get(url, headers=headers, data=payload)
         print(response.status_code)
+        assert response.status_code == 200
+
+
 
