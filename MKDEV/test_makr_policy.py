@@ -19,3 +19,4 @@ def test_marketing_policy(app):
     if app.driver.find_element(By.CSS_SELECTOR, ".MarketingPolicy_subtitle__afPcB").is_displayed():
         print(("Заголовок H2 отображается"))
     assert app.driver.title == "Маркетинговая политика онлайн-сервиса Здравсити", "Заголовок не соответсвует"
+
